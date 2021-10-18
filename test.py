@@ -96,6 +96,11 @@ def writeJsonOutput():
     with open('total_output.json', 'w') as fp:
         json.dump(potentialCustomers, fp, indent=4)
 
-openInput()
-calculatePremiums()
-writeJsonOutput()
+def main():
+    openInput()
+    calculatePremiums()
+    writeJsonOutput()
+
+
+if __name__ == '__main__':
+    main()
