@@ -3,8 +3,8 @@ import csv, json
 potentialCustomers = { "Potential Customers": [] }
 output = []
 
-def openInput():
-    with open('data/input.csv', newline='') as csvfile:
+def openInput(inputFile):
+    with open(inputFile, newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=",", quotechar='"')
         lineNo = 0
 
@@ -69,7 +69,10 @@ def calculateScore(customer):
 
     # 15 points
     if customer["bmi"] < 18.5:              score = score + 15
+
     if "ANXIETY" in customer["health"]:     score = score + 15
+
+
     if "DEPRESSION" in customer["health"]:  score = score + 15
 
     # 25 points
@@ -99,10 +102,13 @@ def writeJsonOutput():
         json.dump(potentialCustomers, fp, indent=4)
 
 def main():
-    openInput()
+    openInput('data/input.csv')
     calculatePremiums()
     writeJsonOutput()
 
 
 if __name__ == '__main__':
     main()
+
+# notes test
+# 
