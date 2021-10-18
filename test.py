@@ -4,7 +4,7 @@ potentialCustomers = { "Potential Customers": [] }
 output = []
 
 def openInput():
-    with open('input.csv', newline='') as csvfile:
+    with open('data/input.csv', newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=",", quotechar='"')
         lineNo = 0
 
@@ -19,9 +19,9 @@ def openInput():
                 "gender": row[2],
                 "smoker": row[3],
                 "email": row[4],
-                "height": float(row[5]),
-                "weight": float(row[6]),
-                "bmi": bmiCalculator(float(row[6]), float(row[5])),
+                "height": row[5],
+                "weight": row[6],
+                "bmi": bmiCalculator(row[6], row[5]),
                 "health": row[7],
                 "alcohol": float(row[8]),
                 "postalcode": row[9],
@@ -41,7 +41,9 @@ def calculatePremiums():
         })
         
 def bmiCalculator(weight, height):
-    return (weight / height / height) * 10000
+    f_weight = float(weight)
+    f_height = float(height)
+    return (f_weight / f_height / f_height) * 10000
 
 def calculatePremium(customer):
     premiumMultiplier = 0
@@ -90,10 +92,10 @@ def calculateScore(customer):
     customer["premiumMultiplier"] = multiplier
     
 def writeJsonOutput():
-    with open('output.json', 'w') as fp:
+    with open('data/output.json', 'w') as fp:
         json.dump(output, fp, indent=4)
 
-    with open('total_output.json', 'w') as fp:
+    with open('data/total_output.json', 'w') as fp:
         json.dump(potentialCustomers, fp, indent=4)
 
 def main():
